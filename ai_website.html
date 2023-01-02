@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-color: #fafafa;
+      }
+      .video-container {
+        height: 100vh;
+        width: 100vw;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        align-items: center;
+        justify-items: center;
+        position: relative;
+      }
+      .video {
+        height: 80%;
+        width: 80%;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .video iframe {
+        height: 100%;
+        width: 100%;
+      }
+      .dvd-logo-box {
+        position: absolute;
+        width: 200px;
+        height: 150px;
+		background-size: cover;
+		background-color:white;
+      }
+      .dismissable-window {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px; /* Add border radius to the dismissable window */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        z-index: 2;
+        width: 300px; /* Add width to the dismissable window */
+        max-width: 90%; /* Set a maximum width to prevent the dismissable window from becoming too wide */
+		font-family: 'Roboto', sans-serif;
+      }
+      .close-button {
+	    display: block;
+        margin: auto;
+        float: center;
+        cursor: pointer;
+        background-color: #ddd; /* Add a background color to the button */
+        border: 0; /* Remove the default border */
+        border-radius: 4px; /* Add border radius to the button */
+        color: white; /* Change the text color */
+        padding: 10px; /* Add padding to the button */
+		font-family: 'Roboto', sans-serif;
+      }
+	  .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 1;
+        }
+      .close-button:hover {
+        background-color: #999; /* Change the background color on hover */
+        transition: background-color 0.2s ease-in-out; /* Add a transition */
+      }
+      
+      .close-button:active {
+        background-color: #666; /* Change the background color when the button is active (clicked) */
+        transition: background-color 0.2s ease-in-out; /* Add a transition */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="video-container">
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/nTFEUsudhfs?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/6Dh-RL__uN4?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/JwYX52BP2Sk?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/gSj5V4Xlt84?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/C3a6A4Jl6bI?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/Jb4prVsXkZU?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <div class="video">
+			<iframe src="https://www.youtube.com/embed/zlfKdbWwruY?autoplay=1" frameborder="0"></iframe>
+		  </div>
+		  <img class="dvd-logo-box" src="https://upload.wikimedia.org/wikipedia/commons/e/e7/DVD-Video_Logo.svg" alt="DVD logo">
+		  <div class="dismissable-window">
+		    <p>This is a monstrosity and should be burned.</p>
+		  <button class="close-button">Close</button>
+		  </div>
+		  <div class="overlay">
+		  </div>
+    </div>
+    <script>
+	  const closeButton = document.querySelector('.close-button');
+      const dismissableWindow = document.querySelector('.dismissable-window');
+	  const overlay = document.querySelector('.overlay');
+
+	  // Show the dismissable window and grey out the rest of the website
+      document.body.appendChild(overlay);
+
+      closeButton.addEventListener('click', () => {
+	  // Hide the dismissable window and remove the grey overlay
+	  overlay.parentNode.removeChild(overlay);
+      dismissableWindow.parentNode.removeChild(dismissableWindow);
+      });
+	</script>
+	
+	<script>
+      const dvdLogoBox = document.querySelector('.dvd-logo-box');
+      const directions = ['right', 'left', 'up', 'down'];
+      let directionX = directions[Math.floor(Math.random() * 2)];
+      let directionY = directions[Math.floor(Math.random() * 2)];
+      let speed = 1;
+      dvdLogoBox.style.top = `${Math.floor(Math.random() * (window.innerHeight - dvdLogoBox.offsetHeight))}px`;
+      dvdLogoBox.style.left = `${Math.floor(Math.random() * (window.innerWidth - dvdLogoBox.offsetWidth))}px`;
+      function moveBox() {
+        const { top, left, right, bottom } = dvdLogoBox.getBoundingClientRect();
+        if (left + speed + dvdLogoBox.offsetWidth > window.innerWidth) {
+          directionX = 'left';
+        } else if (left + speed < 0) {
+          directionX = 'right';
+        }
+        if (top + speed + dvdLogoBox.offsetHeight > window.innerHeight) {
+          directionY = 'up';
+        } else if (top + speed < 0) {
+          directionY = 'down';
+        }
+        if (directionX === 'right') {
+          dvdLogoBox.style.left = `${left + speed}px`;
+        } else {
+          dvdLogoBox.style.left = `${left - speed}px`;
+        }
+        if (directionY === 'down') {
+          dvdLogoBox.style.top = `${top + speed}px`;
+        } else {
+          dvdLogoBox.style.top = `${top - speed}px`;
+        }
+        requestAnimationFrame(moveBox);
+      }
+      moveBox();
+    </script>
+  </body>
+</html>
